@@ -12,7 +12,7 @@ class UserProfileManager(BaseUserManager):
         if not email:
             raise ValueError('User must have an email address')
 
-        email = self.normilize_mail(email)
+        email = self.normalize_email(email)
         user = self.model(email=email, name=name)
 
         user.set_password(password)
@@ -22,13 +22,13 @@ class UserProfileManager(BaseUserManager):
 
     def create_superuser(self, email, name, password):
         '''Create and save a new superuser with given details'''
-        user = self.create_user(email, user, password)
+        user = self.create_user(email, name, password)
 
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
 
-        return users
+        return user
 
 
 ''' Underneth the import let us create a new class called user profile and inherit from the base class
